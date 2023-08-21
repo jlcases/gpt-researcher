@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <title>GPT Researcher</title>
-    <meta name="description" content="A research assistant powered by GPT-4">
+    <title>GPT Rankia</title>
+    <meta name="description" content="El asistente GPT-4 de Rankia">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="./static/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,82 +43,84 @@
 <section class="landing">
     <div class="max-w-5xl mx-auto text-center">
         <h1 class="text-4xl font-extrabold mx-auto lg:text-7xl">
-            Dime hola <br>
+            GPT Rankia<br>
             <span
-                    style="background-image:linear-gradient(to right, #9867F0, #ED4E50); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Hours
-                    of Research</span>
+            style="background-image:linear-gradient(to right, #9867F0, #ED4E50);
+            -webkit-background-clip: text; -webkit-text-fill-color:
+            transparent;">Contenidos especiales</span>
         </h1>
         <p class="max-w-5xl mx-auto text-gray-600 mt-8" style="font-size:20px">
-            Say Hello to GPT Researcher, your AI mate for rapid insights and comprehensive research. GPT Researcher
-            takes care of everything from accurate source gathering to organization of research results - all in one
-            platform designed to make your research process a breeze.
+            En Rankia necesitamos rápidos insights y una investigación
+            exhaustiva para ser los mejores. GPT Rankia se encarga de todo,
+            desde la recopilación precisa de fuentes locales hasta la
+            organización de los resultados de la investigación, todo en una
+            plataforma diseñada para ser los mejores GLOBALMENTE.
         </p>
-        <a href="#form" class="btn btn-primary">Get Started</a>
+        <a href="#form" class="btn btn-primary">Comenzar</a>
     </div>
 </section>
 
 <main class="container" id="form">
     <div class="agent-item"><img src="/static/rankia_logo_20_anyos.svg" class="avatar"
-                                                alt="Auto Agent"></div>
+                                                alt="Auto Agente"></div>
     <form method="POST" class="mt-3" onsubmit="GPTResearcher.startResearch(); return false;">
         <div class="form-group">
-            <label for="task" class="agent-question">What would you like me to research next?</label>
+            <label for="task" class="agent-question">¿Qué te gustaría que investigara a continuación?</label>
             <input type="text" id="task" name="task" class="form-control" required>
-            <input type="radio" name="agent" id="autoAgent" value="Auto Agent" checked hidden>
+            <input type="radio" name="agent" id="autoAgent" value="Auto Agente" checked hidden>
         </div>
         <div class="form-group">
             <div class="row">
 
 
             </div>
-            <button type="button" id="btnShowAuto" class="btn btn-secondary mt-3 btn-show">Auto Agent</button>
+            <button type="button" id="btnShowAuto" class="btn btn-secondary mt-3 btn-show">Auto Agente</button>
         </div>
         <div class="form-group">
-            <label for="report_type" class="agent-question">What type of report would you like me to generate?</label>
+            <label for="report_type" class="agent-question">¿Qué tipo de informe te gustaría que generara?</label>
             <select name="report_type" class="form-control" required>
-                <option value="research_report">Research Report</option>
-                <option value="resource_report">Resource Report</option>
-                <option value="outline_report">Outline Report</option>
+                <option value="research_report">Informe de Investigación</option>
+                <option value="resource_report">Informe de Recursos</option>
+                <option value="outline_report">Índice para desarrollo</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="language" class="agent-question">Select the output language for the report:</label>
+            <label for="language" class="agent-question">Selecciona el idioma de salida para el informe:</label>
             <select name="language" id="language" class="form-control" required>
-                <option value="en">English</option>
-                <option value="es">Spanish</option>
-                <option value="fr">French</option>
-                <option value="br">Brazil</option>
-                <option value="pl">Poland</option>
-                <option value="de">German</option>
-                <option value="it">Italian</option>
-                <option value="pt">Portuguese</option>
-                <option value="ja">Japanese</option>
-                <option value="ko">Korean</option>
-                <option value="zh">Chinese</option>
+                <option value="en">Inglés</option>
+                <option value="es">Español</option>
+                <option value="fr">Francés</option>
+                <option value="br">Brasil</option>
+                <option value="pl">Polonia</option>
+                <option value="de">Alemán</option>
+                <option value="it">Italiano</option>
+                <option value="pt">Portugués</option>
+                <option value="ja">Japonés</option>
+                <option value="ko">Coreano</option>
+                <option value="zh">Chino</option>
         
             </select>
         </div>
         
-        <input type="submit" value="Research" class="btn btn-primary button-padding">
+        <input type="submit" value="Investigar" class="btn btn-primary button-padding">
     </form>
 
     <div class="margin-div">
-        <h2>Agent Output</h2>
-        <p class="mt-2 text-left" style="font-size: 0.8rem;">An agent tailored specifically to your task
-                        will be generated to provide the most precise and relevant research results.</p>
+        <h2>Salida del Agente</h2>
+        <p class="mt-2 text-left" style="font-size: 0.8rem;">Se generará un agente específicamente adaptado a tu tarea
+                        para proporcionar los resultados de investigación más precisos y relevantes.</p>
         <div id="output"></div>
     </div>
     <div class="margin-div">
-        <h2>Research Report</h2>
+        <h2>Informe de Investigación</h2>
         <div id="reportContainer"></div>
-        <button onclick="copyToClipboard()" class="btn btn-secondary mt-3">Copy to clipboard</button>
-        <a id="downloadLink" href="#" class="btn btn-secondary mt-3" target="_blank">Download as PDF</a>
+        <button onclick="copyToClipboard()" class="btn btn-secondary mt-3">Copiar al portapapeles</button>
+        <a id="downloadLink" href="#" class="btn btn-secondary mt-3" target="_blank">Descargar como PDF</a>
     </div>
 </main>
 
 <footer>
-    <p>GPT Researcher &copy; 2023 | <a target="_blank" href="https://github.com/assafelovic/gpt-researcher">GitHub
-        Page</a></p>
+    <p>Investigador GPT &copy; 2023 | <a target="_blank" href="https://github.com/assafelovic/gpt-researcher">Página de GitHub</a></p>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
@@ -145,4 +147,5 @@
 </script>
 </body>
 
-</html>
+</html
+
