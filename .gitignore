@@ -8,4 +8,5 @@ outputs/
 #Ignore pycache
 **/__pycache__/
 start.py
+Dockerfile.dev
 
