@@ -1,9 +1,11 @@
 FROM python:3.11.4-slim-bullseye as install-browser
 
 RUN apt-get update \
-    && apt-get satisfy -y \
-    "chromium, chromium-driver (>= 115.0)" \
-    && chromium --version && chromedriver --version
+    && apt-get install -y \
+    chromium chromium-driver \
+    && chromedriver --version
+    # && chromium --version
+
 
 FROM install-browser as gpt-researcher-install
 
