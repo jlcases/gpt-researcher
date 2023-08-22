@@ -119,42 +119,43 @@ def scrape_text_with_selenium(url: str) -> tuple[WebDriver, str]:
 
     if CFG.selenium_web_browser == "firefox":
         service = Service(executable_path=GeckoDriverManager().install())
-        driver = webdriver.Firefox(
-            service=service, options=options
-        )
+        driver = webdriver.Firefox(service=service, options=options)
     elif CFG.selenium_web_browser == "safari":
-        # Requires a bit more setup on the users end
-        # See https://developer.apple.com/documentation/webkit/testing_with_webdriver_in_safari
         driver = webdriver.Safari(options=options)
     else:
         if platform == "linux" or platform == "linux2":
             options.add_argument("--disable-dev-shm-usage")
             options.add_argument("--remote-debugging-port=9222")
-        options.add_argument("--no-sandbox")
-        options.add_experimental_option(
-            "prefs", {"download_restrictions": 3}
-        )
+            options.add_argument("--no-sandbox")
+            options.add_argument("--disable-gpu")
+            options.add_argument("--disable-software-rasterizer")
+        options.add_experimental_option("prefs", {"download_restrictions": 3})
         driver = webdriver.Chrome(options=options)
-    driver.get(url)
 
-    WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.TAG_NAME, "body"))
-    )
+    try:
+        driver.get(url)
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.TAG_NAME, "body"))
+        )
 
-    # Get the HTML content directly from the browser's DOM
-    page_source = driver.execute_script("return document.body.outerHTML;")
-    soup = BeautifulSoup(page_source, "html.parser")
+        # Get the HTML content directly from the browser's DOM
+        page_source = driver.execute_script("return document.body.outerHTML;")
+        soup = BeautifulSoup(page_source, "html.parser")
 
-    for script in soup(["script", "style"]):
-        script.extract()
+        for script in soup(["script", "style"]):
+            script.extract()
 
-    # text = soup.get_text()
-    text = get_text(soup)
-
-    lines = (line.strip() for line in text.splitlines())
-    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
-    text = "\n".join(chunk for chunk in chunks if chunk)
-    return driver, text
+        text = get_text(soup)
+        lines = (line.strip() for line in text.splitlines())
+        chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+        text = "\n".join(chunk for chunk in chunks if chunk)
+        return driver, text
+    
+    except Exception as e:
+        print(f"Error al intentar obtener la página web {url}: {e}")
+        # Opcionalmente, puedes cerrar el driver si hay un error
+        driver.quit()
+        return None, f"Error al intentar obtener la página web {url}: {e}"
 
 
 def get_text(soup):

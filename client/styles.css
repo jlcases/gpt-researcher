@@ -129,9 +129,9 @@ footer {
     padding: 10px;
     border-radius: 12px;
 }
-.avatar {
-    width: 200px !important;
-    height: 200px !important;
+.logo {
+    width: 200px ;
+    height: 200px ;
     border-radius: 50%;
 }
 
