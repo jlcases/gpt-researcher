@@ -2,8 +2,12 @@ from fastapi import FastAPI, Request, WebSocket
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os
+import logging
 
 from api.ws_manager import process_websocket_data
+
+# Configuración de logging para debugging
+logging.basicConfig(level=logging.DEBUG)
 
 app = FastAPI()
 app.mount("/site", StaticFiles(directory="client"), name="site")
@@ -23,14 +27,16 @@ async def read_root(request: Request):
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()  # Aceptar la conexión WebSocket.
-    data = await websocket.receive_text()  # Recibir los datos del WebSocket.
-    await process_websocket_data(websocket, data)  # Llamar a la función con ambos argumentos.
-
+    logging.debug("Iniciando conexión WebSocket...")
+    await websocket.accept()
+    data = await websocket.receive_text()
+    logging.debug(f"Datos recibidos por WebSocket: {data}")
+    await process_websocket_data(websocket, data)
 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
 
 
 
