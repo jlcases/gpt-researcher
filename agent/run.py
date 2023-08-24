@@ -34,21 +34,25 @@ class WebSocketManager:
         del self.sender_tasks[websocket]
         del self.message_queues[websocket]
 
-    async def start_streaming(self, task, report_type, agent, agent_role_prompt, language, websocket):
-        report, path = await run_agent(task, report_type, agent, agent_role_prompt,language,websocket)
+    async def start_streaming(self, task, report_type, agent, agent_role_prompt, language,openai_api_key,websocket):
+        print(f"Received OpenAI API key in start_streaming: {openai_api_key}")
+        report, path = await run_agent(task, report_type, agent, agent_role_prompt,language,openai_api_key,websocket)
         return report, path
 
 
-async def run_agent(task, report_type, agent, agent_role_prompt, language, websocket):  # New field for language
-    check_openai_api_key()
+async def run_agent(task, report_type, agent, agent_role_prompt, language, openai_api_key, websocket):  # New field for language
+    try:
+        check_openai_api_key(openai_api_key)
+    except ValueError as e:
+        await websocket.send_json({"type": "error", "message": str(e)})
+        return None, None
 
     start_time = datetime.datetime.now()
 
     # await websocket.send_json({"type": "logs", "output": f"Start time: {str(start_time)}\n\n"})
 
-    assistant = ResearchAgent(task, agent, agent_role_prompt, language, websocket)  # Pasar el idioma al constructor del agente
+    assistant = ResearchAgent(task, agent, agent_role_prompt, language, websocket,openai_api_key)  # Pasar el idioma al constructor del agente
     await assistant.conduct_research()
-
 
     report, path = await assistant.write_report(report_type, websocket)
 
@@ -59,3 +63,4 @@ async def run_agent(task, report_type, agent, agent_role_prompt, language, webso
     await websocket.send_json({"type": "logs", "output": f"\nTotal run time: {end_time - start_time}\n"})
 
     return report, path
+

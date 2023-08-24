@@ -4,6 +4,7 @@
 import asyncio
 import json
 import uuid
+import openai
 
 from actions.web_search import web_search
 from actions.web_scrape import async_browse
@@ -23,7 +24,7 @@ CFG = Config()
 
 
 class ResearchAgent:
-    def __init__(self, question, agent, agent_role_prompt, language, websocket):
+    def __init__(self, question, agent, agent_role_prompt, language, websocket,openai_api_key):
         """ Initializes the research assistant with the given question.
         Args: question (str): The question to research
         Returns: None
@@ -38,6 +39,7 @@ class ResearchAgent:
         self.directory_name = uuid.uuid4()
         self.dir_path = os.path.dirname(f"./outputs/{self.directory_name}/")
         self.websocket = websocket
+        self.openai_api_key = openai_api_key
 
 
     async def summarize(self, text, topic):
@@ -72,6 +74,7 @@ class ResearchAgent:
         return new_urls
 
     async def call_agent(self, action, stream=False, websocket=None):
+        
         messages = [{
             "role": "system",
             "content": self.agent_role_prompt

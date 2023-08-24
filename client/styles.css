@@ -113,6 +113,11 @@ footer {
     border-radius: 12px;
 }
 
+.server_error {
+    color: red;
+    font-weight: bold;
+}
+
 #output {
     height: 300px;
     overflow: auto;
@@ -129,9 +134,15 @@ footer {
     padding: 10px;
     border-radius: 12px;
 }
+
 .logo {
-    width: 300px ;
-    height: 300px ;
+    width: 300px;
+    height: 300px;
     border-radius: 50%;
 }
+
+#securityModal .modal-body p {
+    color: black !important;
+}
+
 
