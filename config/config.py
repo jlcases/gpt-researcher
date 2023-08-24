@@ -1,4 +1,3 @@
-"""Configuration class to store the state of bools for different scripts access."""
 import os
 
 import openai
@@ -28,7 +27,8 @@ class Config(metaclass=Singleton):
         self.smart_token_limit = int(os.getenv("SMART_TOKEN_LIMIT", 8000))
         self.browse_chunk_max_length = int(os.getenv("BROWSE_CHUNK_MAX_LENGTH", 8192))
 
-        self.openai_api_key = os.getenv("OPENAI_API_KEY")
+        self.openai_api_key = None
+        self.websocket_openai_api_key = None  # Nueva variable para almacenar la clave de API de websocket
         self.temperature = float(os.getenv("TEMPERATURE", "1"))
 
         self.user_agent = os.getenv(
@@ -38,45 +38,38 @@ class Config(metaclass=Singleton):
         )
 
         self.memory_backend = os.getenv("MEMORY_BACKEND", "local")
-        # Initialize the OpenAI API client
-        openai.api_key = self.openai_api_key
 
-    def set_fast_llm_model(self, value: str) -> None:
-        """Set the fast LLM model value."""
-        self.fast_llm_model = value
+    ...
 
-    def set_smart_llm_model(self, value: str) -> None:
-        """Set the smart LLM model value."""
-        self.smart_llm_model = value
+    def set_websocket_openai_api_key(self, key: str) -> None:
+        """Set the OpenAI API key received from websocket."""
+        self.websocket_openai_api_key = key
 
-    def set_fast_token_limit(self, value: int) -> None:
-        """Set the fast token limit value."""
-        self.fast_token_limit = value
+    def get_openai_api_key(self) -> str:
+        """Get the OpenAI API key value."""
+        if self.websocket_openai_api_key:
+            return self.websocket_openai_api_key
+        elif self.openai_api_key:
+            return self.openai_api_key
+        else:
+            raise ValueError("OpenAI API key has not been set.")
 
-    def set_smart_token_limit(self, value: int) -> None:
-        """Set the smart token limit value."""
-        self.smart_token_limit = value
-
-    def set_browse_chunk_max_length(self, value: int) -> None:
-        """Set the browse_website command chunk max length value."""
-        self.browse_chunk_max_length = value
-
-    def set_openai_api_key(self, value: str) -> None:
-        """Set the OpenAI API key value."""
-        self.openai_api_key = value
-
-    def set_debug_mode(self, value: bool) -> None:
-        """Set the debug mode value."""
-        self.debug_mode = value
+    ...
 
 
-def check_openai_api_key() -> None:
-    """Check if the OpenAI API key is set in config.py or as an environment variable."""
-    cfg = Config()
-    if not cfg.openai_api_key:
-        print(
-            Fore.RED
-            + "Please set your OpenAI API key in .env or as an environment variable."
+def check_openai_api_key(api_key: str) -> None:
+    """Verifica la clave API de OpenAI proporcionada."""
+    if not api_key:
+        error_message = (
+            "Por favor, proporciona tu clave API de OpenAI.\n"
+            "Puedes obtener tu clave en https://platform.openai.com/account/api-keys"
         )
-        print("You can get your key from https://platform.openai.com/account/api-keys")
-        exit(1)
+        raise ValueError(error_message)
+
+
+# Usar esta función cuando necesites la clave API en tu código
+def get_openai_api_key() -> str:
+    config = Config()
+    return config.get_openai_api_key()
+
+
