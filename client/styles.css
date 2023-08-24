@@ -141,7 +141,7 @@ footer {
     border-radius: 50%;
 }
 
-#securityModal .modal-body p {
+.modal-body  {
     color: black !important;
 }
 

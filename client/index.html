@@ -175,34 +175,39 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Estimado usuario,</p>
+    <p>Estimado usuario,</p>
 
-Entendemos la importancia de la seguridad y la privacidad de tus datos, y queremos asegurarte que hemos tomado medidas significativas para proteger la clave API que proporcionas en nuestra plataforma.
+    <p>Entendemos la importancia de la seguridad y la privacidad de tus datos, y queremos asegurarte que hemos tomado medidas significativas para proteger la clave API que proporcionas en nuestra plataforma.</p>
 
-Medidas de Seguridad Adoptadas:
-Sin Almacenamiento Permanente: Tu clave API no se almacena en ninguna base de datos persistente. La clave se mantiene solo en memoria durante el tiempo que es necesaria para completar la tarea solicitada y luego se descarta.
+    <h2>Medidas de Seguridad Adoptadas:</h2>
+    
+    <h3>Sin Almacenamiento Permanente:</h3>
+    <p>Tu clave API no se almacena en ninguna base de datos persistente. La clave se mantiene solo en memoria durante el tiempo que es necesaria para completar la tarea solicitada y luego se descarta.</p>
+    
+    <h3>Conexión Segura (WSS):</h3>
+    <p>Al hacer uso de nuestra plataforma, toda la comunicación entre tu dispositivo y nuestros servidores se realiza a través de una conexión segura de WebSocket (WSS). Esto asegura que la información intercambiada esté cifrada y protegida contra interceptaciones malintencionadas.</p>
+    
+    <h3>Entorno Protegido:</h3>
+    <p>Nuestra aplicación está alojada en <strong>Google Cloud Run</strong>, una infraestructura que cuenta con medidas de seguridad robustas y gestiona automáticamente el SSL/TLS. Esto garantiza que tu conexión sea segura y que el contenido no pueda ser alterado.</p>
+    
+    <h3>Desarrollo Responsable:</h3>
+    <p>Nuestro código ha sido diseñado con las mejores prácticas de seguridad en mente, asegurando que la información sensible no se exponga en ningún punto.</p>
+    
+    <h2>Recomendación:</h2>
+    <p>Si, en algún momento, sientes inseguridad o desconfianza al compartir tu clave API, te recomendamos seguir estos pasos:</p>
+    <ol>
+        <li>Usa nuestra plataforma con la clave API proporcionada.</li>
+        <li>Una vez hayas terminado, accede a tu cuenta en la plataforma de OpenAI.</li>
+        <li>Destruye o revoca la clave API utilizada.</li>
+        <li>Genera una nueva clave API para futuros usos.</li>
+    </ol>
+    <p>Esta práctica garantiza que, incluso en el caso hipotético de que alguien obtenga acceso a tu clave API, no pueda hacer uso de ella, ya que habrá sido revocada.</p>
 
-Conexión Segura (WSS): Al hacer uso de nuestra plataforma, toda la comunicación entre tu dispositivo y nuestros servidores se realiza a través de una conexión segura de WebSocket (WSS). Esto asegura que la información intercambiada esté cifrada y protegida contra interceptaciones malintencionadas.
+    <p>Valoramos tu confianza y estamos comprometidos con la seguridad de tus datos. Si tienes alguna pregunta o inquietud adicional, no dudes en <em>ponerte en contacto con nosotros</em>.</p>
+    
+    <p>Atentamente,<br><strong>El equipo de Dulia</strong></p>
+</div>
 
-Entorno Protegido: Nuestra aplicación está alojada en Google Cloud Run, una infraestructura que cuenta con medidas de seguridad robustas y gestiona automáticamente el SSL/TLS. Esto garantiza que tu conexión sea segura y que el contenido no pueda ser alterado.
-
-Desarrollo Responsable: Nuestro código ha sido diseñado con las mejores prácticas de seguridad en mente, asegurando que la información sensible no se exponga en ningún punto.
-
-Recomendación:
-Si, en algún momento, sientes inseguridad o desconfianza al compartir tu clave API, te recomendamos seguir estos pasos:
-
-Usa nuestra plataforma con la clave API proporcionada.
-Una vez hayas terminado, accede a tu cuenta en la plataforma de OpenAI.
-Destruye o revoca la clave API utilizada.
-Genera una nueva clave API para futuros usos.
-Esta práctica garantiza que, incluso en el caso hipotético de que alguien obtenga acceso a tu clave API, no pueda hacer uso de ella, ya que habrá sido revocada.
-
-Valoramos tu confianza y estamos comprometidos con la seguridad de tus datos. Si tienes alguna pregunta o inquietud adicional, no dudes en ponerte en contacto con nosotros.
-
-Atentamente,
-
-El equipo de [Nombre de tu Web]
-        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
