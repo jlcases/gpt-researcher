@@ -1,18 +1,27 @@
+/**
+ * GPTResearcher es un módulo que gestiona la comunicación WebSocket 
+ * y actualiza la interfaz de usuario según los mensajes del servidor.
+ */
 const GPTResearcher = (() => {
+  // Referencias de elementos DOM
   const outputElement = document.getElementById("output");
   const reportContainerElement = document.getElementById("reportContainer");
   const downloadLinkElement = document.getElementById("downloadLink");
+
+  // Convertidor para transformar markdown en HTML
   const converter = new showdown.Converter();
 
+  // Variables de estado
   let socket;
   let reconnectAttempts = 0;
-  const maxReconnectAttempts = 5;  // Establece un límite de reintentos
+  const maxReconnectAttempts = 5;
 
   const startResearch = () => {
+      // Inicialización
       outputElement.innerHTML = "";
       reportContainerElement.innerHTML = "";
 
-      addAgentResponse("🤔 Thinking about research questions for the task...");
+      addAgentResponse("🤔 Pensando en las preguntas de investigación para la tarea...");
       listenToSockEvents();
   };
 
@@ -21,24 +30,55 @@ const GPTResearcher = (() => {
   };
 
   const listenToSockEvents = () => {
-      const { protocol, host, pathname } = window.location;
-      const ws_uri = `${protocol === 'https:' ? 'wss:' : 'ws:'}//${host}${pathname}ws`;
+      const ws_uri = getWebSocketURI();
       socket = new WebSocket(ws_uri);
 
-      socket.onopen = () => {
-          reconnectAttempts = 0;  // Reset the reconnect attempts
-          initiateSocketCommunication();
-      };
+      socket.onopen = handleSocketOpen;
       socket.onmessage = handleSocketMessage;
-      socket.onerror = (error) => {
-          showError("WebSocket Error");
-          console.log("WebSocket Error:", error);
-      };
-      socket.onclose = (event) => {
-          if (!event.wasClean && reconnectAttempts < maxReconnectAttempts) {
-              reconnectAttempts++;
-              setTimeout(listenToSockEvents, 2000);
-          }
+      socket.onerror = handleSocketError;
+      socket.onclose = handleSocketClose;
+  };
+
+  const getWebSocketURI = () => {
+      const { protocol, host, pathname } = window.location;
+      return `${protocol === 'https:' ? 'wss:' : 'ws:'}//${host}${pathname}ws`;
+  };
+
+  const handleSocketOpen = () => {
+      reconnectAttempts = 0;
+      initiateSocketCommunication();
+  };
+
+  const handleSocketError = (error) => {
+      showError("WebSocket Error");
+      console.log("WebSocket Error:", error);
+  };
+
+  const handleSocketClose = (event) => {
+      if (!event.wasClean && reconnectAttempts < maxReconnectAttempts) {
+          reconnectAttempts++;
+          setTimeout(listenToSockEvents, 2000);
+      }
+  };
+
+  const initiateSocketCommunication = () => {
+      const requestData = gatherFormData();
+
+      console.log("Sending data to server:", requestData);
+      if (!requestData.openai_api_key) {
+          console.warn("Warning: API key is missing or empty.");
+      }
+
+      socket.send(`start ${JSON.stringify(requestData)}`);
+  };
+
+  const gatherFormData = () => {
+      return {
+          task: document.querySelector('input[name="task"]').value,
+          report_type: document.querySelector('select[name="report_type"]').value,
+          agent: document.querySelector('input[name="agent"]:checked').value,
+          language: document.getElementById("language").value,
+          openai_api_key: document.getElementById("openai-api-key").value
       };
   };
 
@@ -60,29 +100,6 @@ const GPTResearcher = (() => {
               handleServerError(data.output || "Error desconocido desde el servidor.");
               break;
       }
-  };
-
-  const initiateSocketCommunication = () => {
-      const task = document.querySelector('input[name="task"]').value;
-      const report_type = document.querySelector('select[name="report_type"]').value;
-      const agent = document.querySelector('input[name="agent"]:checked').value;
-      const language = document.getElementById("language").value;
-      const openai_api_key = document.getElementById("openai-api-key").value;
-
-      const requestData = {
-          task,
-          report_type,
-          agent,
-          language,
-          openai_api_key
-      };
-
-      console.log("Sending data to server:", requestData);
-      if (!openai_api_key) {
-          console.warn("Warning: API key is missing or empty.");
-      }
-
-      socket.send(`start ${JSON.stringify(requestData)}`);
   };
 
   const addAgentResponse = (message) => {
