@@ -8,6 +8,11 @@ from api.ws_manager import process_websocket_data
 app = FastAPI()
 app.mount("/site", StaticFiles(directory="client"), name="site")
 app.mount("/static", StaticFiles(directory="client/static"), name="static")
+# Montando directorios adicionales de archivos estáticos
+app.mount("/assets", StaticFiles(directory="client/assets"), name="assets")
+app.mount("/vendors", StaticFiles(directory="client/vendors"), name="vendors")
+app.mount("/plugins", StaticFiles(directory="client/plugins"), name="plugins")
+
 
 @app.on_event("startup")
 def startup_event():
@@ -21,16 +26,20 @@ templates = Jinja2Templates(directory="client")
 async def read_root(request: Request):
     return templates.TemplateResponse('index.html', {"request": request, "report": None})
 
+@app.get("/gptdemo")
+async def read_gptdemo(request: Request):
+    return templates.TemplateResponse('gptdemo.html', {"request": request, "report": None})
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()  # Aceptar la conexión WebSocket.
     data = await websocket.receive_text()  # Recibir los datos del WebSocket.
     await process_websocket_data(websocket, data)  # Llamar a la función con ambos argumentos.
 
-
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
 
 
 
