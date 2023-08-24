@@ -7,6 +7,8 @@ venv/
 outputs/
 #Ignore pycache
 **/__pycache__/
+venv/
+
 start.py
 Dockerfile.dev
 
