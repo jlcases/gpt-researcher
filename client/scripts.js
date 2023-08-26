@@ -147,10 +147,16 @@ const GPTResearcher = (() => {
       }
   });
 
-  return {
-      startResearch,
-      copyToClipboard
-  };
+      // Esta es la parte nueva:
+      const API = {
+        startResearch,
+        copyToClipboard
+    };
+
+    window.GPTResearcher = API;  // Esto expone GPTResearcher al objeto global window
+    
+    return API;  // Esto sigue devolviendo las funciones como antes
 })();
+
 
 
