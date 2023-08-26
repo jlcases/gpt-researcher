@@ -49,7 +49,7 @@ async def async_browse(url: str, question: str, websocket: WebSocket) -> str:
 
     print(f"Scraping url {url} with question {question}")
     await websocket.send_json(
-        {"type": "logs", "output": f"🔎 Browsing the {url} for relevant about: {question}..."})
+        {"type": "logs", "output": f"🔎 Estudiando {url} para información relevante sobre: {question}..."})
 
     try:
         driver, text = await loop.run_in_executor(executor, scrape_text_with_selenium, url)
@@ -57,7 +57,7 @@ async def async_browse(url: str, question: str, websocket: WebSocket) -> str:
         summary_text = await loop.run_in_executor(executor, summary.summarize_text, url, text, question, driver)
 
         await websocket.send_json(
-            {"type": "logs", "output": f"📝 Information gathered from url {url}: {summary_text}"})
+            {"type": "logs", "output": f"📝 Información obtenida de  {url}: {summary_text}"})
 
         return f"Information gathered from url {url}: {summary_text}"
     except Exception as e:

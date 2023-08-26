@@ -67,7 +67,7 @@ class ResearchAgent:
         new_urls = []
         for url in url_set_input:
             if url not in self.visited_urls:
-                await self.websocket.send_json({"type": "logs", "output": f"✅ Adding source url to research: {url}\n"})
+                await self.websocket.send_json({"type": "logs", "output": f"✅ Añadiendo URL fuente a la investigación: {url}\n"})
                 self.visited_urls.add(url)
                 new_urls.append(url)
 
@@ -108,7 +108,7 @@ class ResearchAgent:
             if start != -1 and end != -1:
                 queries.append(line[start+1:end])
 
-        await self.websocket.send_json({"type": "logs", "output": f"🧠 I will conduct my research based on the following queries: {queries}..."})
+        await self.websocket.send_json({"type": "logs", "output": f"🧠 Realizaré mi investigación basándome en las siguientes consultas:  {queries}..."})
     
         return queries
     
@@ -122,7 +122,7 @@ class ResearchAgent:
         new_search_urls = self.get_new_urls([url.get("href") for url in search_results])
 
         await self.websocket.send_json(
-            {"type": "logs", "output": f"🌐 Browsing the following sites for relevant information: {new_search_urls}..."})
+            {"type": "logs", "output": f"🌐 Navegando por los siguientes sitios para obtener información relevante: {new_search_urls}..."})
 
         # Create a list to hold the coroutine objects
         tasks = [async_browse(url, query, self.websocket) for url in await new_search_urls]
@@ -138,7 +138,7 @@ class ResearchAgent:
         Returns: str: The search summary for the given query
         """
 
-        await self.websocket.send_json({"type": "logs", "output": f"🔎 Running research for '{query}'..."})
+        await self.websocket.send_json({"type": "logs", "output": f"🔎 Realizando investigación para: '{query}'..."})
 
         responses = await self.async_search(query)
 

@@ -12,11 +12,15 @@ async def verify_api_key(api_key):
     try:
         # Hacer una llamada de prueba a la API
         response = openai.Completion.create(engine="davinci", prompt="test", max_tokens=5)
-        return True, "API key is valid"
+        return True, "La clave API es válida"
     except openai.error.OpenAIError as e:
-        return False, str(e)
+        # Si el error es debido a una clave API incorrecta, devolvemos un mensaje personalizado
+        if "Incorrect API key provided" in str(e):
+            return False, "La clave API proporcionada es incorrecta. Puedes encontrar tu clave API en https://platform.openai.com/account/api-keys."
+        return False, "Se produjo un error: " + str(e)
     except Exception as e:
-        return False, str(e)
+        return False, "Se produjo un error: " + str(e)
+
 
 async def process_websocket_data(websocket, data):
     config = Config()  # Obtén la instancia del objeto de configuración al principio
@@ -45,7 +49,7 @@ async def process_websocket_data(websocket, data):
         else:
             agent_role_prompt = None
 
-        await websocket.send_json({"type": "logs", "output": f"Initiated an Agent: {agent}"})
+        await websocket.send_json({"type": "logs", "output": f"¡Dulai a tu servicio!<br> Empiezo a trabajar por ti.<br>☕ Tómate un café.Inicio un agente: {agent}"})
 
         if task and report_type and agent:
             print(f"About to call start_streaming with key: {openai_api_key}")
