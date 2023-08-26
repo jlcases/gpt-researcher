@@ -1,13 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: dulai1-servicio
+  name: gpt-researcher-service
 spec:
+  type: LoadBalancer
   selector:
-    app: dulai1  # Coincide con la etiqueta de tu despliegue "dulai1"
+    app: nginx-2
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8000  # El puerto en el que tu aplicación está escuchando dentro del contenedor
-  type: LoadBalancer
+      targetPort: 8000
+
 

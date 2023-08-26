@@ -13,4 +13,6 @@ start.py
 Dockerfile.dev
 
 venv/
+deployment.yaml
+service.yaml
 

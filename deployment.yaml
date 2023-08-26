@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: gpt-researcher
-        image: gcr.io/gptserchai/github.com/jlcases/gpt-researcher@sha256:e39dc43eb26b381aa9a904311fde0b898bfc11a8d37b3d2d5113a6854ac5ebc1
+        image: gcr.io/gptserchai/github.com/jlcases/gpt-researcher:8b9f855d860deeb8ba0f30e93cf10f1a9a1575f4
         ports:
         - containerPort: 8000
         env:
