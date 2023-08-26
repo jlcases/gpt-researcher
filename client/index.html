@@ -136,7 +136,88 @@
     contribuciones de jlcases a OSS</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#securityModal">Política de Seguridad</a></p>
 </footer>
 
-<!-- Resto del código, incluyendo scripts y el modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+<script src="/site/scripts.js"></script>
+<script>
+    const btnChoose = document.getElementById('btnChoose');
+    const btnShowAuto = document.getElementById('btnShowAuto');
+    const autoAgentDiv = document.getElementById('autoAgentDiv');
+    const agentChoices = document.getElementsByClassName('agent-choices');
+
+    btnChoose.addEventListener('click', function () {
+        btnShowAuto.style.display = 'inline-block';
+        btnChoose.style.display = 'none';
+        autoAgentDiv.style.display = 'none';
+        agentChoices[0].style.display = 'flex';
+    });
+
+    btnShowAuto.addEventListener('click', function () {
+        btnShowAuto.style.display = 'none';
+        btnChoose.style.display = 'inline-block';
+        autoAgentDiv.style.display = 'flex';
+        agentChoices[0].style.display = 'none';
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><script>
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+</script>
+<script>
+    document.querySelector("form").addEventListener("submit", function() {
+        const apiKey = document.getElementById("openai-api-key").value;
+        document.getElementById("hidden_openai_api_key").value = apiKey;
+    });
+</script>
+
+<div class="modal fade" id="securityModal" tabindex="-1" aria-labelledby="securityModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="securityModalLabel">Documento de Seguridad y Confidencialidad de la Clave API</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+    <p>Estimado usuario,</p>
+
+    <p>Entendemos la importancia de la seguridad y la privacidad de tus datos, y queremos asegurarte que hemos tomado medidas significativas para proteger la clave API que proporcionas en nuestra plataforma.</p>
+
+    <h2>Medidas de Seguridad Adoptadas:</h2>
+    
+    <h3>Sin Almacenamiento Permanente:</h3>
+    <p>Tu clave API no se almacena en ninguna base de datos persistente. La clave se mantiene solo en memoria durante el tiempo que es necesaria para completar la tarea solicitada y luego se descarta.</p>
+    
+    <h3>Conexión Segura (WSS):</h3>
+    <p>Al hacer uso de nuestra plataforma, toda la comunicación entre tu dispositivo y nuestros servidores se realiza a través de una conexión segura de WebSocket (WSS). Esto asegura que la información intercambiada esté cifrada y protegida contra interceptaciones malintencionadas.</p>
+    
+    <h3>Entorno Protegido:</h3>
+    <p>Nuestra aplicación está alojada en <strong>Google Cloud Run</strong>, una infraestructura que cuenta con medidas de seguridad robustas y gestiona automáticamente el SSL/TLS. Esto garantiza que tu conexión sea segura y que el contenido no pueda ser alterado.</p>
+    
+    <h3>Desarrollo Responsable:</h3>
+    <p>Nuestro código ha sido diseñado con las mejores prácticas de seguridad en mente, asegurando que la información sensible no se exponga en ningún punto.</p>
+    
+    <h2>Recomendación:</h2>
+    <p>Si, en algún momento, sientes inseguridad o desconfianza al compartir tu clave API, te recomendamos seguir estos pasos:</p>
+    <ol>
+        <li>Usa nuestra plataforma con la clave API proporcionada.</li>
+        <li>Una vez hayas terminado, accede a tu cuenta en la plataforma de OpenAI.</li>
+        <li>Destruye o revoca la clave API utilizada.</li>
+        <li>Genera una nueva clave API para futuros usos.</li>
+    </ol>
+    <p>Esta práctica garantiza que, incluso en el caso hipotético de que alguien obtenga acceso a tu clave API, no pueda hacer uso de ella, ya que habrá sido revocada.</p>
+
+    <p>Valoramos tu confianza y estamos comprometidos con la seguridad de tus datos. Si tienes alguna pregunta o inquietud adicional, no dudes en <em>ponerte en contacto con nosotros</em>.</p>
+    
+    <p>Atentamente,<br><strong>El equipo de Dulai</strong></p>
+</div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 
