@@ -65,7 +65,6 @@ async def async_browse(url: str, question: str, websocket: WebSocket) -> str:
         return f"Error processing the url {url}: {e}"
 
 
-print("Iniciando browsing Selenium...")
 
 def browse_website(url: str, question: str) -> tuple[str, WebDriver]:
     """Browse a website and return the answer and links to the user
@@ -96,7 +95,6 @@ def browse_website(url: str, question: str) -> tuple[str, WebDriver]:
     close_browser(driver)
     return f"Answer gathered from website: {summary_text} \n \n Links: {links}", driver
 
-print("Iniciando scrapping Selenium...")
 
 def scrape_text_with_selenium(url: str) -> tuple[WebDriver, str]:
     """Scrape text from a website using selenium
@@ -119,6 +117,8 @@ def scrape_text_with_selenium(url: str) -> tuple[WebDriver, str]:
     options.add_argument(CFG.user_agent)
     options.add_argument('--headless')
     options.add_argument("--enable-javascript")
+
+    print("Iniciando scrapping Selenium...")
 
     if CFG.selenium_web_browser == "firefox":
         service = Service(executable_path=GeckoDriverManager().install())
