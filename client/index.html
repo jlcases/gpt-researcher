@@ -2,21 +2,15 @@
 <html lang="es">
 
 <head>
-    <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-T25G43FT');</script>
-    <!-- End Google Tag Manager -->
-    <title>GPT Dulai</title>
-    <meta name="description" content="Tu Copilot investigador">
+    <title>GPT Rankia</title>
+    <meta name="description" content="El asistente GPT-4 de Rankia">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="icon" href="./static/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    <link rel="stylesheet" href="/site/styles.css"/>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/site/styles.css"/>
     <style>
         .avatar {
             width: 60px;
@@ -45,39 +39,41 @@
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T25G43FT"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
 
 <section class="landing">
     <div class="max-w-5xl mx-auto text-center">
         <h1 class="text-4xl font-extrabold mx-auto lg:text-7xl">
-            GPT Dulai<br>
-            <span style="background-image:linear-gradient(to right, #9867F0, #ED4E50);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Content Copilot</span>
+            GPT Rankia<br>
+            <span
+            style="background-image:linear-gradient(to right, #9867F0, #ED4E50);
+            -webkit-background-clip: text; -webkit-text-fill-color:
+            transparent;">Contenidos especiales</span>
         </h1>
-        <p class="max-w-5xl mx-auto text-gray-600 mt-8" style="font-size:20px" rs_id="198">
-            Saluda a GPT Dulai, tu compañero de inteligencia artificial para obtener insights rápidos y una investigación exhaustiva. GPT Dulai se encarga de todo, desde la recopilación precisa de fuentes hasta la organización de los resultados de la investigación, todo en una plataforma diseñada para hacer que tu proceso de investigación sea sencillo.
+        <p class="max-w-5xl mx-auto text-gray-600 mt-8" style="font-size:20px">
+            En Rankia necesitamos rápidos insights y una investigación
+            exhaustiva para ser los mejores. GPT Rankia se encarga de todo,
+            desde la recopilación precisa de fuentes locales hasta la
+            organización de los resultados de la investigación, todo en una
+            plataforma diseñada para ser los mejores GLOBALMENTE.
         </p>
-        <a href="#form" class="btn btn-primary mb-3">Comenzar</a>
+        <a href="#form" class="btn btn-primary">Comenzar</a>
     </div>
 </section>
 
 <main class="container" id="form">
-    <form method="POST" class="mt-3" onsubmit="GPTResearcher.startResearch(); 
-    return false;">
-        <div class="form-group mb-3">
-            <input type="password" class="form-control" id="openai-api-key" name="openai_api_key" placeholder="Obligatorio introducir tu Clave API de OpenAI  aquí para usarlo" required>
-        </div>
-        <div class="form-group mb-3">
+    <div class="agent-item"><img src="/static/rankia_logo_20_anyos.svg" class="avatar"
+                                                alt="Auto Agente"></div>
+    <form method="POST" class="mt-3" onsubmit="GPTResearcher.startResearch(); return false;">
+        <div class="form-group">
             <label for="task" class="agent-question">¿Qué te gustaría que investigara a continuación?</label>
             <input type="text" id="task" name="task" class="form-control" required>
             <input type="radio" name="agent" id="autoAgent" value="Auto Agente" checked hidden>
-            <input type="hidden" name="openai_api_key" id="hidden_openai_api_key">
         </div>
         <div class="form-group">
-            <div class="row"></div>
+            <div class="row">
+
+
+            </div>
             <button type="button" id="btnShowAuto" class="btn btn-secondary mt-3 btn-show">Auto Agente</button>
         </div>
         <div class="form-group">
@@ -88,39 +84,31 @@
                 <option value="outline_report">Índice para desarrollo</option>
             </select>
         </div>
-        <div class="form-group mb-3">
+        <div class="form-group">
             <label for="language" class="agent-question">Selecciona el idioma de salida para el informe:</label>
             <select name="language" id="language" class="form-control" required>
                 <option value="en">Inglés</option>
                 <option value="es">Español</option>
                 <option value="fr">Francés</option>
-                <option value="br">Portugués (Brasil)</option>
-                <option value="pl">Polaco</option>
+                <option value="br">Brasil</option>
+                <option value="pl">Polonia</option>
                 <option value="de">Alemán</option>
                 <option value="it">Italiano</option>
-                <option value="pt">Portugués (Portugal)</option>
+                <option value="pt">Portugués</option>
                 <option value="ja">Japonés</option>
                 <option value="ko">Coreano</option>
-                <option value="zh">Chino (Simplificado)</option>
-                <option value="zh-TW">Chino (Tradicional)</option>
-                <option value="ru">Ruso</option>
-                <option value="nl">Holandés</option>
-                <option value="ar">Árabe</option>
-                <option value="tr">Turco</option>
-                <option value="hi">Hindi</option>
-                <option value="sv">Sueco</option>
-                <option value="fi">Finlandés</option>
-                <option value="no">Noruego</option>
-                <option value="da">Danés</option>
+                <option value="zh">Chino</option>
+        
             </select>
         </div>
         
-        <input type="submit" value="Investigar" class="btn btn-primary mb-3">
+        <input type="submit" value="Investigar" class="btn btn-primary button-padding">
     </form>
 
     <div class="margin-div">
         <h2>Salida del Agente</h2>
-        <p class="mt-2 text-left" style="font-size: 0.8rem;">Se generará un agente específicamente adaptado a tu tarea para proporcionar los resultados de investigación más precisos y relevantes.</p>
+        <p class="mt-2 text-left" style="font-size: 0.8rem;">Se generará un agente específicamente adaptado a tu tarea
+                        para proporcionar los resultados de investigación más precisos y relevantes.</p>
         <div id="output"></div>
     </div>
     <div class="margin-div">
@@ -132,13 +120,31 @@
 </main>
 
 <footer>
-    <p>GPT Dulai &copy; 2023 | <a target="_blank"
-    href="https://github.com/jlcases/gpt-researcher">Basado en las
-    contribuciones de jlcases a OSS</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#securityModal">Política de Seguridad</a></p>
+    <p>Investigador GPT &copy; 2023 | <a target="_blank" href="https://github.com/assafelovic/gpt-researcher">Página de GitHub</a></p>
 </footer>
 
-<!-- Resto del código, incluyendo scripts y el modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+<script src="/site/scripts.js"></script>
+<script>
+    const btnChoose = document.getElementById('btnChoose');
+    const btnShowAuto = document.getElementById('btnShowAuto');
+    const autoAgentDiv = document.getElementById('autoAgentDiv');
+    const agentChoices = document.getElementsByClassName('agent-choices');
 
+    btnChoose.addEventListener('click', function () {
+        btnShowAuto.style.display = 'inline-block';
+        btnChoose.style.display = 'none';
+        autoAgentDiv.style.display = 'none';
+        agentChoices[0].style.display = 'flex';
+    });
+
+    btnShowAuto.addEventListener('click', function () {
+        btnShowAuto.style.display = 'none';
+        btnChoose.style.display = 'inline-block';
+        autoAgentDiv.style.display = 'flex';
+        agentChoices[0].style.display = 'none';
+    });
+</script>
 </body>
 
-</html>
+</html
