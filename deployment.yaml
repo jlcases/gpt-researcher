@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dulai1
+  labels:
+    app: dulai1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dulai1
+  template:
+    metadata:
+      labels:
+        app: dulai1
+    spec:
+      containers:
+      - name: gpt-researcher
+        image: gcr.io/gptserchai/github.com/jlcases/gpt-researcher@sha256:e39dc43eb26b381aa9a904311fde0b898bfc11a8d37b3d2d5113a6854ac5ebc1
+        ports:
+        - containerPort: 8000
+        env:
+        - name: PORT
+          value: "8000"
