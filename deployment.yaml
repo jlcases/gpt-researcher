@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dulai1
+  name: nginx-2
   labels:
-    app: dulai1
+    app: nginx-2
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: dulai1
+      app: nginx-2
   template:
     metadata:
       labels:
-        app: dulai1
+        app: nginx-2
     spec:
       containers:
       - name: gpt-researcher
